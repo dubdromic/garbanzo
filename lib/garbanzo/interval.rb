@@ -2,7 +2,7 @@ module Garbanzo
   class Interval
     attr_reader :length, :unit
 
-    def initialize(length, unit)
+    def initialize(length = 1, unit = :month)
       @length = length.to_i
       @unit = unit.to_sym
     end

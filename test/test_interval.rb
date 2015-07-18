@@ -6,6 +6,12 @@ module Garbanzo
       @klass = Garbanzo::Interval
     end
 
+    def test_defaults
+      interval = @klass.new
+      assert_equal interval.length, 1
+      assert_equal interval.unit, :month
+    end
+
     def test_to_h
       interval = @klass.new(21, :days)
       assert_equal interval.to_h, { length: 21, unit: :days }
