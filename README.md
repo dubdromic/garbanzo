@@ -4,6 +4,8 @@ Ruby library for interacting with Authorize.net's Automated Recurring Billing.
 
 ## Installation
 
+### Not available on RubyGems yet.
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -20,13 +22,34 @@ Or install it yourself as:
 
 ## Usage
 
-TODO
+### Alpha API, subject to change.
 
-## Development
+Required parameters for interacting with subscriptions can be set up.
+```Ruby
+credentials = Garbanzo::Credentials.new('login', 'password')
+charge = Garbanzo::Charge.new(dollar_amount, card_number, exp_month, exp_year)
+duration = Garbanzo::Duration.new # run indefinitely, starting tomorrow
+interval = Garbanzo::Interval.new(1, :month) # run every month
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+With those, you can create a subscription.
+```Ruby
+subscription = Garbanzo::Subscription.new(credentials)
+subscription.create(charge, duration, interval)
+subscription.id # returned from Authorize
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Or retrieve one from the API.
+```Ruby
+subscription = Garbanzo::Subscription.new(credentials).find(other_subscription_id)
+```
+
+In addition, Garbanzo supports `update`, `status`, and `cancel`.
+```Ruby
+subscription.update(charge, duration, interval)
+subscription.status
+subscription.cancel
+```
 
 ## Contributing
 
