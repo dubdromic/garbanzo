@@ -6,9 +6,9 @@ module Garbanzo
   require 'garbanzo/interval'
   require 'garbanzo/duration'
   require 'garbanzo/address'
+  require 'garbanzo/credit_card'
 
   # TODO
   # require 'garbanzo/gatetway'
   # require 'garbanzo/credentials'
-  # require 'garbanzo/credit_card'
 end
