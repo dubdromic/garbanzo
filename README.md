@@ -24,32 +24,69 @@ Or install it yourself as:
 
 ### Alpha API, subject to change.
 
-Required parameters for interacting with subscriptions can be set up.
+
+### Parameters
+
+Required parameters for interacting with ARB subscriptions are wrapped in helper classes. They include validation via a `#valid?` method.
+
 ```Ruby
+# No defaults
 credentials = Garbanzo::Credentials.new('login', 'password')
 charge = Garbanzo::Charge.new(dollar_amount, card_number, exp_month, exp_year)
-duration = Garbanzo::Duration.new # run indefinitely, starting tomorrow
-interval = Garbanzo::Interval.new(1, :month) # run every month
+
+# Defaults: start today, run indefinitely
+# Example: start today, run for 12 intervals
+duration = Garbanzo::Duration.new(Date.today, 12)
+
+# Defaults: run every month
+# Example: run every 14 days
+interval = Garbanzo::Interval.new(14, :days)
 ```
 
-With those, you can create a subscription.
+### Creating a subscription
+
 ```Ruby
 subscription = Garbanzo::Subscription.new(credentials)
+
+# Duration and interval can be omitted if you want to use defaults
 subscription.create(charge, duration, interval)
-subscription.id # returned from Authorize
 ```
 
-Or retrieve one from the API.
+```Ruby
+Garbanzo::Subscription.create(credentials, charge, duration, interval)
+```
+
+### Retrieving an existing subscription
+
 ```Ruby
 subscription = Garbanzo::Subscription.new(credentials).find(other_subscription_id)
+
+# This makes an ARB status API call, and returns a Garbanzo::Subscription::Status object.
+# It caches the result, pass in `true` to bust the cache.
+subscription.status
 ```
 
-In addition, Garbanzo supports `update`, `status`, and `cancel`.
+```Ruby
+Graceway::Subscription.find(credentials, charge, duration, interval)
+```
+
+### Updating an existing subscription
+
 ```Ruby
 subscription.update(charge, duration, interval)
-subscription.status
+```
+
+### Canceling an existing subscription
+
+```Ruby
 subscription.cancel
 ```
+
+### TODO
+
+- `Garbanzo::Subscription::Status` API documentation
+- Public method return value documentation
+- Errors
 
 ## Contributing
 
