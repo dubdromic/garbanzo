@@ -1,4 +1,5 @@
 require "garbanzo/version"
+require 'pry'
 
 # Garbanzo - A small Ruby library for interacting with Authorize.Net ARB
 # Copyright (c) 2015 Corin Schedler
@@ -20,6 +21,10 @@ require "garbanzo/version"
 module Garbanzo
   require 'garbanzo/configuration'
   require 'garbanzo/params'
+
+  require 'garbanzo/parser'
+  require 'garbanzo/response'
+
   require 'garbanzo/interval'
   require 'garbanzo/duration'
   require 'garbanzo/address'
