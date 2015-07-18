@@ -32,7 +32,10 @@ Required parameters for interacting with ARB subscriptions are wrapped in helper
 ```Ruby
 # No defaults
 credentials = Garbanzo::Credentials.new('login', 'password')
-charge = Garbanzo::Charge.new(dollar_amount, card_number, exp_month, exp_year)
+card = Garbanzo::CreditCard.new(card_number, exp_month, exp_year)
+
+# Dollars, or cents if Integer
+amount = 10.0
 
 # Defaults: start today, run indefinitely
 # Example: start today, run for 12 intervals
@@ -49,11 +52,11 @@ interval = Garbanzo::Interval.new(14, :days)
 subscription = Garbanzo::Subscription.new(credentials)
 
 # Duration and interval can be omitted if you want to use defaults
-subscription.create(charge, duration, interval)
+subscription.create(amount, card, duration, interval)
 ```
 
 ```Ruby
-Garbanzo::Subscription.create(credentials, charge, duration, interval)
+Garbanzo::Subscription.create(credentials, amount, card, duration, interval)
 ```
 
 ### Retrieving an existing subscription
@@ -67,7 +70,7 @@ subscription.status
 ```
 
 ```Ruby
-Graceway::Subscription.find(credentials, charge, duration, interval)
+Graceway::Subscription.find(credentials, amount, card, duration, interval)
 ```
 
 ### Updating an existing subscription
