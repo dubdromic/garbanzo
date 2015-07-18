@@ -1,5 +1,7 @@
 module Garbanzo
   class Interval
+    attr_reader :length, :unit
+
     def initialize(length, unit)
       @length = length.to_i
       @unit = unit.to_sym
@@ -17,8 +19,6 @@ module Garbanzo
     end
 
     private
-
-    attr_reader :length, :unit
 
     def unit_valid?
       months? || days?
