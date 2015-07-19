@@ -30,6 +30,7 @@ module Garbanzo
   require 'garbanzo/address'
   require 'garbanzo/credit_card'
 
+  require 'garbanzo/subscription'
   # TODO
   # require 'garbanzo/gatetway'
   # require 'garbanzo/credentials'

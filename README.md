@@ -32,6 +32,18 @@ Required parameters for interacting with ARB subscriptions are wrapped in helper
 ```Ruby
 # No defaults
 credentials = Garbanzo::Credentials.new('login', 'password')
+
+# Only first and last name are required.
+address = Garbanzo::Address.new(
+  first_name: 'Test',
+  last_name: 'Dude',
+  address1: '123 Main St',
+  city: 'New York',
+  state: 'NY',
+  zip: '12345',
+  country: 'USA'
+)
+
 card = Garbanzo::CreditCard.new(card_number, exp_month, exp_year)
 
 # Dollars, or cents if Integer
@@ -49,40 +61,26 @@ interval = Garbanzo::Interval.new(14, :days)
 ### Creating a subscription
 
 ```Ruby
-subscription = Garbanzo::Subscription.new(credentials)
-
 # Duration and interval can be omitted if you want to use defaults
-subscription.create(amount, card, duration, interval)
+Garbanzo::Subscription.create(credentials, amount, card, address, duration, interval)
 ```
 
-```Ruby
-Garbanzo::Subscription.create(credentials, amount, card, duration, interval)
-```
-
-### Retrieving an existing subscription
+### Updating an existing subscsription
 
 ```Ruby
-subscription = Garbanzo::Subscription.new(credentials).find(other_subscription_id)
-
-# This makes an ARB status API call, and returns a Garbanzo::Subscription::Status object.
-# It caches the result, pass in `true` to bust the cache.
-subscription.status
-```
-
-```Ruby
-Graceway::Subscription.find(credentials, amount, card, duration, interval)
-```
-
-### Updating an existing subscription
-
-```Ruby
-subscription.update(charge, duration, interval)
+Garbanzo::Subscription.update(credentials, amount, card, address, duration, interval)
 ```
 
 ### Canceling an existing subscription
 
 ```Ruby
-subscription.cancel
+Garbanzo::Subscription.cancel(credentials, subscription_id)
+```
+
+### Retreiving status of an existing subscription
+
+```Ruby
+Garbanzo::Subscription.status(credentials, subscription_id)
 ```
 
 ### TODO
