@@ -25,6 +25,8 @@ module Garbanzo
   require 'garbanzo/parser'
   require 'garbanzo/response'
 
+  require 'garbanzo/ast'
+
   require 'garbanzo/interval'
   require 'garbanzo/duration'
   require 'garbanzo/address'
