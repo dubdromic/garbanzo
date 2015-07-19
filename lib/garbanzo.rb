@@ -23,6 +23,7 @@ module Garbanzo
   require 'garbanzo/params'
 
   require 'garbanzo/parser'
+  require 'garbanzo/request'
   require 'garbanzo/response'
 
   require 'garbanzo/ast'
@@ -33,6 +34,9 @@ module Garbanzo
   require 'garbanzo/credit_card'
 
   require 'garbanzo/subscription'
+  require 'garbanzo/subscription/base'
+  require 'garbanzo/subscription/create'
+
   # TODO
   # require 'garbanzo/gatetway'
   # require 'garbanzo/credentials'

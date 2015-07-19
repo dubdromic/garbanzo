@@ -1,8 +1,7 @@
-require 'nokogiri'
-
 module Garbanzo
   class Response < Parser
     extend Forwardable
+
     def_delegators :response, :id, :to_h
 
     def self.wrap(response)
