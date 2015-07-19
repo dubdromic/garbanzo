@@ -68,7 +68,7 @@ Garbanzo::Subscription.create(credentials, amount, card, address, duration, inte
 ### Updating an existing subscsription
 
 ```Ruby
-Garbanzo::Subscription.update(credentials, amount, card, address, duration, interval)
+Garbanzo::Subscription.update(credentials, subscription_id, amount, card, address, duration, interval)
 ```
 
 ### Canceling an existing subscription
