@@ -28,6 +28,7 @@ module Garbanzo
 
   require 'garbanzo/ast'
 
+  require 'garbanzo/credentials'
   require 'garbanzo/interval'
   require 'garbanzo/duration'
   require 'garbanzo/address'
