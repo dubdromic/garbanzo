@@ -4,12 +4,12 @@ module Garbanzo
       def create(amount, card, address, duration, interval)
         amount = FormattedAmount.new(amount)
         ast = ast_builder.build(amount, card, address, duration, interval)
-        Request.post ast.to_xml
+        request ast.to_xml
       end
 
       private
 
-      def ast_klass
+      def ast_builder_klass
         Garbanzo::AST::Create
       end
     end
