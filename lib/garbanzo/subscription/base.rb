@@ -26,7 +26,7 @@ module Garbanzo
       attr_reader :credentials, :requestor, :responsor
 
       def request(xml)
-        Response.wrap Request.post(xml)
+        Response.wrap Request.post(xml, credentials.test_mode)
       end
 
       def ast_builder
