@@ -20,12 +20,12 @@ module Garbanzo
 
     def to_h
       {
-        number: number,
-        exp_date: exp_date
+        card_number: number,
+        expiration_date: expiration_date
       }
     end
 
-    def exp_date
+    def expiration_date
       format('%04d-%02d', exp_year, exp_month)
     end
 

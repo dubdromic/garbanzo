@@ -30,15 +30,15 @@ module Garbanzo
 
     def test_to_h
       card = @klass.new(@card_number, 5, 2100)
-      assert_equal card.to_h, { number: '4111111111111111', exp_date: '2100-05' }
+      assert_equal card.to_h, { card_number: '4111111111111111', expiration_date: '2100-05' }
     end
 
-    def test_exp_date
+    def test_expiration_date
       card = @klass.new(@card_number, 1, 2100)
-      assert_equal card.exp_date, '2100-01'
+      assert_equal card.expiration_date, '2100-01'
 
       card = @klass.new(@card_number, '7', '1980')
-      assert_equal card.exp_date, '1980-07'
+      assert_equal card.expiration_date, '1980-07'
     end
   end
 end
