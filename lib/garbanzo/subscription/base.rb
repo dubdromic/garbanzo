@@ -11,7 +11,7 @@ module Garbanzo
 
       FormattedAmount = Struct.new(:amount) do
         def to_i
-          (amount / 100).to_i
+          (amount * 100).to_i
         end
       end
 
