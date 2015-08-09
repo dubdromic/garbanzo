@@ -14,10 +14,19 @@ module Garbanzo
 
       def set_nodes(hash)
         @nodes = {
-          type => hash.merge(credentials.to_h),
+          type => credentials_hash.merge(hash),
           :attributes! => { type => { xmlns: 'AnetApi/xml/v1/schema/AnetApiSchema.xsd' }}
         }
         self
+      end
+
+      def credentials_hash
+        {
+          merchant_authentication: {
+            name: credentials.login,
+            transaction_key: credentials.password
+          }
+        }
       end
     end
   end

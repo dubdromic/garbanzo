@@ -14,7 +14,7 @@ module Garbanzo
     end
 
     def setup
-      credentials = { merchant_authentication: { login: 'test', password: 'password' }}
+      credentials = Garbanzo::Credentials.new('test', 'password')
       @klass = ASTChild.new(credentials)
     end
 
