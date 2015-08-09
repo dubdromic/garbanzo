@@ -3,16 +3,18 @@ module Garbanzo
     class Create < Base
       def build(amount, card, address, duration, interval)
         hash = {
-          payment_schedule: {
-            interval: interval.to_h,
-            start_date: duration.start_date,
-            total_occurrences: duration.occurrences
-          },
-          amount: amount.to_i,
-          payment: {
-            credit_card: card.to_h
-          },
-          address: address.to_h
+          subscription: {
+            payment_schedule: {
+              interval: interval.to_h,
+              start_date: duration.start_date,
+              total_occurrences: duration.occurrences
+            },
+            amount: amount.to_i,
+            payment: {
+              credit_card: card.to_h
+            },
+            bill_to: address.to_h,
+          }
         }
 
         set_nodes hash
