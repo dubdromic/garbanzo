@@ -9,7 +9,7 @@ module Garbanzo
     def test_defaults
       interval = @klass.new
       assert_equal interval.length, 1
-      assert_equal interval.unit, :month
+      assert_equal interval.unit, :months
     end
 
     def test_to_h

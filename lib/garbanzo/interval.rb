@@ -4,7 +4,7 @@ module Garbanzo
 
     def initialize(length = 1, unit = :month)
       @length = length.to_i
-      @unit = unit.to_sym
+      @unit = normalize_unit unit.to_sym
     end
 
     def to_h
@@ -20,6 +20,10 @@ module Garbanzo
 
     private
 
+    def normalize_unit(unit)
+      unit == :month ? :months : unit
+    end
+
     def unit_valid?
       months? || days?
     end
@@ -31,7 +35,7 @@ module Garbanzo
     end
 
     def months?
-      unit == :months || unit == :month
+      unit == :months
     end
 
     def days?
