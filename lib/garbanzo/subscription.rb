@@ -11,6 +11,9 @@ module Garbanzo
     end
 
     def self.update; end
-    def self.status; end
+
+    def self.status
+      Garbanzo::Subscription::Status.new(credentials).status(subscription_id)
+    end
   end
 end
