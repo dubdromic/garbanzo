@@ -13,6 +13,6 @@ class TestGarbanzo < Minitest::Test
 
     assert_equal Garbanzo.connection.login, 'test'
     assert_equal Garbanzo.connection.password, 'password'
-    assert_equal Garbanzo.connection.test_mode, nil
+    assert_equal Garbanzo.connection.test_mode, false
   end
 end
