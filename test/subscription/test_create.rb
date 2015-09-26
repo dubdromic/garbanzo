@@ -2,10 +2,12 @@ require 'minitest_helper'
 
 module Garbanzo
   class TestSubscriptionCreate < Minitest::Test
+    include AuthorizeStubs
+    include AuthorizeCredentials
+
     def setup
       @klass = Garbanzo::Subscription::Create
-      stub_request(:post, 'https://apitest.authorize.net/xml/v1/request.api')
-        .to_return(body: success_body)
+      stub_authorize_request success_body
     end
 
     def success_body
@@ -28,7 +30,6 @@ BODY
     end
 
     def test_general_function
-      credentials = Garbanzo::Credentials.new(AUTHORIZE_TEST_LOGIN, AUTHORIZE_TEST_KEY)
       card = { card_number: '4111111111111111', expiration_date: '2020-06' }
       address = { first_name: 'First', last_name: 'Last' }
       response = @klass

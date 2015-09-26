@@ -2,14 +2,11 @@ require 'minitest_helper'
 
 module Garbanzo
   class TestSubscriptionCancel < Minitest::Test
+    include AuthorizeStubs
+    include AuthorizeCredentials
+
     def setup
       @klass = Garbanzo::Subscription::Cancel
-      @credentials = Garbanzo::Credentials.new(AUTHORIZE_TEST_LOGIN, AUTHORIZE_TEST_KEY)
-    end
-
-    def stub_cancellation_request(body)
-      stub_request(:post, 'https://apitest.authorize.net/xml/v1/request.api')
-        .to_return(body: body)
     end
 
     def success_body
@@ -46,16 +43,16 @@ BODY
     end
 
     def test_successful_cancellation
-      stub_cancellation_request success_body
+      stub_authorize_request success_body
       response = @klass
-        .new(@credentials).cancel(12345)
+        .new(credentials).cancel(12345)
       assert_equal response, { id: 0 }
     end
 
     def test_unsuccessful_cancellation
-      stub_cancellation_request failure_body
+      stub_authorize_request failure_body
       response = @klass
-        .new(@credentials).cancel(12345)
+        .new(credentials).cancel(12345)
       assert_equal response, {
         id: -1,
         code: 'E00007',
