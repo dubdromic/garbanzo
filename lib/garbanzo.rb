@@ -38,6 +38,7 @@ module Garbanzo
   require 'garbanzo/subscription/base'
   require 'garbanzo/subscription/create'
   require 'garbanzo/subscription/cancel'
+  require 'garbanzo/subscription/status'
 
   # TODO
   # require 'garbanzo/gatetway'

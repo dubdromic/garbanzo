@@ -15,18 +15,20 @@ module Garbanzo
         end
       end
 
-      def initialize(credentials, requestor = Garbanzo::Request, responsor = Garbanzo::Response)
+      def initialize(credentials)
         @credentials = credentials
-        @requestor = requestor
-        @responsor = responsor
       end
 
       private
 
-      attr_reader :credentials, :requestor, :responsor
+      attr_reader :credentials
 
       def request(xml)
-        Response.wrap Request.post(xml, credentials.test_mode)
+        response_klass.wrap Request.post(xml, credentials.test_mode)
+      end
+
+      def response_klass
+        Response
       end
 
       def ast_builder

@@ -10,6 +10,18 @@ module Garbanzo
 
     private
 
+    def response
+      node(:resultCode) == 'Ok' ? success : error
+    end
+
+    def success
+      Success.new node(:subscriptionId).to_i
+    end
+
+    def error
+      Error.new node(:code), node(:text)
+    end
+
     Success = Struct.new(:id) do
       def to_h
         { id: id }
@@ -23,14 +35,6 @@ module Garbanzo
 
       def to_h
         { id: id, code: code, message: message }
-      end
-    end
-
-    def response
-      if node(:resultCode) == 'Ok'
-        Success.new node(:subscriptionId).to_i
-      else
-        Error.new node(:code), node(:text)
       end
     end
   end
