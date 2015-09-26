@@ -20,28 +20,24 @@ require 'active_attr'
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 module Garbanzo
-  require 'garbanzo/configuration'
-
+  require 'garbanzo/connection'
   require 'garbanzo/parser'
   require 'garbanzo/request'
   require 'garbanzo/response'
-
   require 'garbanzo/ast'
-
-  require 'garbanzo/credentials'
-  require 'garbanzo/interval'
-  require 'garbanzo/duration'
-  require 'garbanzo/address'
-  require 'garbanzo/credit_card'
-
+  require 'garbanzo/parameters'
   require 'garbanzo/subscription'
-  require 'garbanzo/subscription/base'
-  require 'garbanzo/subscription/create'
-  require 'garbanzo/subscription/cancel'
-  require 'garbanzo/subscription/status'
-  require 'garbanzo/subscription/update'
 
-  # TODO
-  # require 'garbanzo/gatetway'
-  # require 'garbanzo/credentials'
+  TEST_HOST = 'https://apitest.authorize.net'
+  LIVE_HOST = 'https://api2.authorize.net'
+  API_URI = '/xml/v1/request.api'
+
+  class << self
+    attr_accessor :connection
+  end
+
+  def self.configure
+    self.connection ||= Connection.new
+    yield connection
+  end
 end

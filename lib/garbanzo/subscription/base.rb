@@ -9,8 +9,8 @@ module Garbanzo
         end
       end
 
-      def initialize(credentials)
-        @credentials = credentials
+      def initialize(connection = Garbanzo.connection)
+        @connection = connection
       end
 
       def call(*args)
@@ -20,10 +20,10 @@ module Garbanzo
 
       private
 
-      attr_reader :credentials
+      attr_reader :connection
 
       def request(xml)
-        response_klass.wrap Request.post(xml, credentials.test_mode)
+        response_klass.wrap Request.post(xml, connection.test_mode)
       end
 
       def response_klass
@@ -31,7 +31,7 @@ module Garbanzo
       end
 
       def ast_builder
-        ast_builder_klass.new(credentials).extend(formatter)
+        ast_builder_klass.new(connection).extend(formatter)
       end
 
       def formatter

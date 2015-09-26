@@ -1,3 +1,9 @@
+require 'garbanzo/subscription/base'
+require 'garbanzo/subscription/create'
+require 'garbanzo/subscription/cancel'
+require 'garbanzo/subscription/status'
+require 'garbanzo/subscription/update'
+
 module Garbanzo
   class Subscription
     include ActiveAttr::Model
