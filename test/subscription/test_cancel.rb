@@ -3,9 +3,10 @@ require 'minitest_helper'
 module Garbanzo
   class TestSubscriptionCancel < Minitest::Test
     include AuthorizeStubs
-    include AuthorizeCredentials
+    include AuthorizeConnection
 
     def setup
+      stub_connection
       @klass = Garbanzo::Subscription::Cancel
     end
 
@@ -43,7 +44,7 @@ BODY
     end
 
     def response
-      @klass.new(credentials).call(12345)
+      @klass.call(12345)
     end
 
     def test_successful_cancellation
@@ -54,9 +55,9 @@ BODY
     def test_unsuccessful_cancellation
       stub_authorize_request failure_body
       assert_equal response, {
-        id: -1,
-        code: 'E00007',
-        message: 'User authentication failed due to invalid authentication values.'
+        id: nil,
+        error_code: 'E00007',
+        errors: ['User authentication failed due to invalid authentication values.']
       }
     end
   end

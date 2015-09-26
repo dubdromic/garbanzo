@@ -39,10 +39,10 @@ eos
       assert_equal response.to_h, { id: 100000 }
 
       response = @klass.new(@failure_xml)
-      assert_equal response.to_h, { id: -1, code: 'I00010', message: 'User authentication failed.' }
+      assert_equal response.to_h, { id: nil, error_code: 'I00010', errors: ['User authentication failed.'] }
 
       response = @klass.new(@invalid_xml)
-      assert_equal response.to_h, { id: -1, code: '', message: '' }
+      assert_equal response.to_h, { id: nil, error_code: '', errors: [''] }
     end
   end
 end

@@ -3,9 +3,10 @@ require 'minitest_helper'
 module Garbanzo
   class TestSubscriptionStatus < Minitest::Test
     include AuthorizeStubs
-    include AuthorizeCredentials
+    include AuthorizeConnection
 
     def setup
+      stub_connection
       @klass = Garbanzo::Subscription::Status
     end
 
@@ -44,7 +45,7 @@ BODY
     end
 
     def response
-      @klass.new(credentials).call(12345)
+      @klass.call(12345)
     end
 
     def test_successful_status
@@ -55,9 +56,9 @@ BODY
     def test_unsuccessful_status
       stub_authorize_request failure_body
       assert_equal response, {
-        id: -1,
-        code: 'E00003',
-        message: 'An error occurred while parsing the XML request.'
+        id: nil,
+        error_code: 'E00003',
+        errors: ['An error occurred while parsing the XML request.']
       }
     end
   end

@@ -19,7 +19,7 @@ module Garbanzo
     end
 
     def error
-      { id: -1, code: node(:code), message: node(:text) }
+      { id: nil, error_code: node(:code), errors: [node(:text)] }
     end
   end
 end

@@ -3,11 +3,12 @@ require 'minitest_helper'
 module Garbanzo
   class TestSubscriptionCreate < Minitest::Test
     include AuthorizeStubs
-    include AuthorizeCredentials
+    include AuthorizeConnection
 
     def setup
-      @klass = Garbanzo::Subscription::Create
+      stub_connection
       stub_authorize_request success_body
+      @klass = Garbanzo::Subscription::Create
     end
 
     def success_body
@@ -32,8 +33,7 @@ BODY
     def test_general_function
       card = { card_number: '4111111111111111', expiration_date: '2020-06' }
       address = { first_name: 'First', last_name: 'Last' }
-      response = @klass
-        .new(credentials).call(1, card, address, Duration.new(Date.today + 2), Interval.new)
+      response = @klass.call(1, card, address, Duration.new(Date.today + 2), Interval.new)
       assert_equal response, { id: 2788088 }
     end
   end

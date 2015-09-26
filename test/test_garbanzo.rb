@@ -9,6 +9,7 @@ class TestGarbanzo < Minitest::Test
     Garbanzo.configure do |c|
       c.login = 'test'
       c.password = 'password'
+      c.test_mode = false
     end
 
     assert_equal Garbanzo.connection.login, 'test'

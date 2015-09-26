@@ -25,9 +25,13 @@ module AuthorizeStubs
   end
 end
 
-module AuthorizeCredentials
-  def credentials
-    @credentials ||= Garbanzo::Credentials.new(AUTHORIZE_TEST_LOGIN, AUTHORIZE_TEST_KEY)
+module AuthorizeConnection
+  def stub_connection
+    Garbanzo.configure do |c|
+      c.login = AUTHORIZE_TEST_LOGIN
+      c.password = AUTHORIZE_TEST_KEY
+      c.test_mode = true
+    end
   end
 end
 

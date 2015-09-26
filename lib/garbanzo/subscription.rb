@@ -15,26 +15,40 @@ module Garbanzo
     attribute :duration, default: -> { Duration.new }
     attribute :interval, default: -> { Interval.new }
 
+    attribute :error_code
+
     def save
       id ? update : create
+      !errors.any?
     end
 
     def cancel
-      Cancel.call id
+      handle_response Cancel.call(id)
+      self.status = 'canceled' unless errors.any?
+      self
     end
 
     def status
-      Status.call id
+      handle_response Status.call(id)
     end
 
     private
 
     def create
-      Create.call(amount, card, address, duration, interval)
+      handle_response Create.call(amount, card, address, duration, interval)
     end
 
     def update
-      Update.call(id, amount, card, address, duration, interval)
+      handle_response Update.call(id, amount, card, address, duration, interval)
+    end
+
+    def handle_response(response)
+      if response[:errors]
+        errors.add(:base, response[:errors])
+      else
+        self.attributes = response
+      end
+      self
     end
   end
 end

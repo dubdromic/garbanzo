@@ -2,7 +2,10 @@ require 'minitest_helper'
 
 module Garbanzo
   class TestSubscription < Minitest::Test
+    include AuthorizeConnection
+
     def setup
+      stub_connection
       @subscription = Garbanzo::Subscription.new
     end
 
@@ -24,6 +27,33 @@ module Garbanzo
       assert_respond_to @subscription, :save
       assert_respond_to @subscription, :cancel
       assert_respond_to @subscription, :status
+    end
+
+    def test_create
+      @subscription.id = nil
+      Garbanzo::Subscription::Create.stub(:call, { id: 123 }) do
+        assert @subscription.save
+        assert_equal 123, @subscription.id
+      end
+
+      @subscription.id = nil
+      Garbanzo::Subscription::Create.stub(:call, { errors: ['Error'] }) do
+        refute @subscription.save
+        assert_equal [['Error']], @subscription.errors.full_messages
+      end
+    end
+
+    def test_update
+      @subscription.id = 123
+      Garbanzo::Subscription::Update.stub(:call, { id: 123 }) do
+        assert @subscription.save
+        assert_equal 123, @subscription.id
+      end
+
+      Garbanzo::Subscription::Update.stub(:call, { errors: ['Error'] }) do
+        refute @subscription.save
+        assert_equal [['Error']], @subscription.errors.full_messages
+      end
     end
   end
 end
