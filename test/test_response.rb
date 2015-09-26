@@ -34,17 +34,6 @@ eos
       @invalid_xml = '<broken>'
     end
 
-    def test_id
-      response = @klass.new(@success_xml)
-      assert_equal response.id, 100000
-
-      response = @klass.new(@failure_xml)
-      assert_equal response.id, -1
-
-      response = @klass.new(@invalid_xml)
-      assert_equal response.id, -1
-    end
-
     def test_to_h
       response = @klass.new(@success_xml)
       assert_equal response.to_h, { id: 100000 }
