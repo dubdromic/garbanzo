@@ -9,6 +9,10 @@ module Garbanzo
         end
       end
 
+      def self.call(*args)
+        new.call *args
+      end
+
       def initialize(connection = Garbanzo.connection)
         @connection = connection
       end
