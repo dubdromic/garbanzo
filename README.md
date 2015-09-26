@@ -25,14 +25,61 @@ Or install it yourself as:
 ### Alpha API, subject to change.
 
 
-### Parameters
+### Connection
 
-Required parameters for interacting with ARB subscriptions are wrapped in helper classes. They include validation via a `#valid?` method.
+Configuration for the connection to Authorize.net is handled through `Garbanzo.configure`.
 
 ```Ruby
-# No defaults
-credentials = Garbanzo::Credentials.new('login', 'password')
+Garbanzo.configure do |c|
+  c.login = 'your_login'
+  c.password = 'your_key'
+  c.test_mode = true # defaults to false
+end
+```
 
+You can also assign a connection object directly.
+
+```Ruby
+test_mode = true
+connection = Garbanzo::Connection.new('your_login', 'your_key', test_mode)
+Garbanzo.connection = connection
+```
+
+### Subscriptions
+
+Subscription objects are `ActiveAttr::Model`s.
+
+```Ruby
+subscription = Garbanzo::Subscription.new
+
+# Regular assignment
+subscription.amount = amount
+
+# Mass assignment
+subscription.attributes = { address: address, duration: duration, interval: interval }
+
+# Without ID present, create new subscription
+subscription.save
+
+# With ID present, update existing subscription
+subscription.id = 12345
+subscription.amount = amount + 100
+subscription.save
+
+# Returns active, expired, suspended, canceled, or terminated
+subscription.status
+
+# Cancels subscription
+subscription.cancel
+```
+
+### Parameters
+
+Required parameters for interacting with ARB subscriptions are wrapped in helper classes.
+
+They include validation via a `#valid?` method, where appropriate.
+
+```Ruby
 # Only first and last name are required.
 address = Garbanzo::Address.new(
   first_name: 'Test',
@@ -44,9 +91,12 @@ address = Garbanzo::Address.new(
   country: 'USA'
 )
 
+card_number = '4111111111111111'
+exp_month = '10'
+exp_year = '2021'
 card = Garbanzo::CreditCard.new(card_number, exp_month, exp_year)
 
-# Dollars
+# Amount is in dollars
 amount = 10.0
 
 # Defaults: start today, run indefinitely
@@ -58,34 +108,8 @@ duration = Garbanzo::Duration.new(Date.today, 12)
 interval = Garbanzo::Interval.new(14, :days)
 ```
 
-### Creating a subscription
-
-```Ruby
-# Duration and interval can be omitted if you want to use defaults
-Garbanzo::Subscription.create(credentials, amount, card, address, duration, interval)
-```
-
-### Updating an existing subscsription
-
-```Ruby
-Garbanzo::Subscription.update(credentials, subscription_id, amount, card, address, duration, interval)
-```
-
-### Canceling an existing subscription
-
-```Ruby
-Garbanzo::Subscription.cancel(credentials, subscription_id)
-```
-
-### Retreiving status of an existing subscription
-
-```Ruby
-Garbanzo::Subscription.status(credentials, subscription_id)
-```
-
 ### TODO
 
-- `Garbanzo::Subscription::Status` API documentation
 - Public method return value documentation
 - Errors
 
