@@ -1,6 +1,6 @@
 module Garbanzo
   class Subscription
-    class Create < Base
+    class Update < Base
       def call(amount, *args)
         args.unshift (amount * 100).to_i
         super *args
@@ -9,7 +9,7 @@ module Garbanzo
       private
 
       def ast_builder_klass
-        Garbanzo::AST::Create
+        Garbanzo::AST::Update
       end
     end
   end

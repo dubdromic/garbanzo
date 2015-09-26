@@ -4,5 +4,6 @@ module Garbanzo
     require 'garbanzo/ast/create'
     require 'garbanzo/ast/cancel'
     require 'garbanzo/ast/status'
+    require 'garbanzo/ast/update'
   end
 end

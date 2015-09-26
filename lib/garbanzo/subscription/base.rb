@@ -9,12 +9,6 @@ module Garbanzo
         end
       end
 
-      FormattedAmount = Struct.new(:amount) do
-        def to_i
-          (amount * 100).to_i
-        end
-      end
-
       def initialize(credentials)
         @credentials = credentials
       end

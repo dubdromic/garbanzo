@@ -46,7 +46,7 @@ address = Garbanzo::Address.new(
 
 card = Garbanzo::CreditCard.new(card_number, exp_month, exp_year)
 
-# Dollars, or cents if Integer
+# Dollars
 amount = 10.0
 
 # Defaults: start today, run indefinitely

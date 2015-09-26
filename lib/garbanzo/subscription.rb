@@ -10,7 +10,19 @@ module Garbanzo
       Garbanzo::Subscription::Cancel.new(credentials).call(subscription_id)
     end
 
-    def self.update; end
+    def self.update(
+        credentials,
+        subscription_id,
+        amount,
+        card,
+        address,
+        duration = Duration.new,
+        interval = Interval.new
+      )
+      Garbanzo::Subscription::Update
+        .new(credentials)
+        .call(subscription_id, amount, card, duration, interval)
+    end
 
     def self.status
       Garbanzo::Subscription::Status.new(credentials).call(subscription_id)
