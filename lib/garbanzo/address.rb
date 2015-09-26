@@ -15,7 +15,9 @@ module Garbanzo
     attr_accessor *ATTRIBUTES
 
     def initialize(options = {})
-      Garbanzo::Params.new(self, options).assign_from_hash
+      options.each do |attribute, value|
+        public_send("#{attribute}=", value)
+      end
     end
 
     def valid?
