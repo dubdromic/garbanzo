@@ -16,6 +16,7 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'active_attr'
   spec.add_dependency 'nokogiri'
   spec.add_dependency 'gyoku', '~> 1.0'
   spec.add_dependency 'faraday'
