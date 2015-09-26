@@ -1,11 +1,6 @@
 module Garbanzo
   class Subscription
     class Status < Base
-      def status(subscription_id)
-        ast = ast_builder.build(subscription_id)
-        request ast.to_xml
-      end
-
       private
 
       def ast_builder_klass

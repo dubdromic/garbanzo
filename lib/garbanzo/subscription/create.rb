@@ -1,10 +1,9 @@
 module Garbanzo
   class Subscription
     class Create < Base
-      def create(amount, card, address, duration, interval)
-        amount = FormattedAmount.new(amount)
-        ast = ast_builder.build(amount, card, address, duration, interval)
-        request ast.to_xml
+      def call(amount, *args)
+        args.unshift FormattedAmount.new(amount)
+        super *args
       end
 
       private

@@ -33,7 +33,7 @@ BODY
       card = { card_number: '4111111111111111', expiration_date: '2020-06' }
       address = { first_name: 'First', last_name: 'Last' }
       response = @klass
-        .new(credentials).create(1, card, address, Duration.new(Date.today + 2), Interval.new)
+        .new(credentials).call(1, card, address, Duration.new(Date.today + 2), Interval.new)
       assert_equal response, { id: 2788088 }
     end
   end

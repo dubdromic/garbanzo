@@ -42,17 +42,17 @@ BODY
 BODY
     end
 
+    def response
+      @klass.new(credentials).call(12345)
+    end
+
     def test_successful_cancellation
       stub_authorize_request success_body
-      response = @klass
-        .new(credentials).cancel(12345)
       assert_equal response, { id: 0 }
     end
 
     def test_unsuccessful_cancellation
       stub_authorize_request failure_body
-      response = @klass
-        .new(credentials).cancel(12345)
       assert_equal response, {
         id: -1,
         code: 'E00007',

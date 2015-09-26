@@ -19,6 +19,11 @@ module Garbanzo
         @credentials = credentials
       end
 
+      def call(*args)
+        ast = ast_builder.build *args
+        request ast.to_xml
+      end
+
       private
 
       attr_reader :credentials

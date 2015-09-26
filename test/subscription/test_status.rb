@@ -43,17 +43,17 @@ BODY
 BODY
     end
 
+    def response
+      @klass.new(credentials).call(12345)
+    end
+
     def test_successful_status
       stub_authorize_request success_body
-      response = @klass
-        .new(credentials).status(12345)
       assert_equal response, { status: 'inactive' }
     end
 
     def test_unsuccessful_status
       stub_authorize_request failure_body
-      response = @klass
-        .new(credentials).status(12345)
       assert_equal response, {
         id: -1,
         code: 'E00003',
