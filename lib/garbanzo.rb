@@ -34,6 +34,7 @@ module Garbanzo
   require 'garbanzo/credit_card'
 
   require 'garbanzo/subscription'
+  require 'garbanzo/subscription/class_methods'
   require 'garbanzo/subscription/base'
   require 'garbanzo/subscription/create'
   require 'garbanzo/subscription/cancel'
