@@ -14,6 +14,7 @@ module Garbanzo
     attribute :address
     attribute :duration, default: -> { Duration.new }
     attribute :interval, default: -> { Interval.new }
+    attribute :internal_status, default: nil
 
     attribute :error_code
 
@@ -24,12 +25,11 @@ module Garbanzo
 
     def cancel
       handle_response Cancel.call(id)
-      self.status = 'canceled' unless errors.any?
-      self
     end
 
     def status
       handle_response Status.call(id)
+      internal_status
     end
 
     private

@@ -55,5 +55,32 @@ module Garbanzo
         assert_equal [['Error']], @subscription.errors.full_messages
       end
     end
+
+    def test_cancel
+      @subscription.id = 123
+      Garbanzo::Subscription::Cancel.stub(:call, { id: 123 }) do
+        assert @subscription.cancel
+      end
+
+      Garbanzo::Subscription::Cancel.stub(:call, { errors: ['Error'] }) do
+        assert @subscription.cancel
+        assert_equal [['Error']], @subscription.errors.full_messages
+      end
+    end
+
+    def test_status
+      @subscription.id = 123
+      Garbanzo::Subscription::Status.stub(:call, { internal_status: 'active' }) do
+        assert_equal 'active', @subscription.status
+      end
+
+      # Reset to default
+      @subscription.internal_status = nil
+
+      Garbanzo::Subscription::Status.stub(:call, { errors: ['Error'] }) do
+        assert_equal nil, @subscription.status
+        assert_equal [['Error']], @subscription.errors.full_messages
+      end
+    end
   end
 end
