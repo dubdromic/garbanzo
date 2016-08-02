@@ -4,8 +4,6 @@ Ruby library for interacting with Authorize.net's Automated Recurring Billing.
 
 ## Installation
 
-### Not available on RubyGems yet.
-
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -47,7 +45,9 @@ Garbanzo.connection = connection
 
 ### Subscriptions
 
-Subscription objects are `ActiveAttr::Model`s.
+Subscription objects are `ActiveAttr::Model`s; they can be treated as such with
+the exception of the initializer, which doesn't take a hash as normal
+`ActiveAttr::Model`s do.
 
 ```Ruby
 subscription = Garbanzo::Subscription.new
