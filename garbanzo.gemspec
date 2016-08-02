@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'A small library for interacting with Authorize ARB'
   spec.description   = 'A small library for interacting with Authorize ARB'
-  spec.homepage      = 'github.com/dubdromic/garbanzo'
+  spec.homepage      = 'https://github.com/dubdromic/garbanzo'
   spec.license       = 'GPLv2'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
